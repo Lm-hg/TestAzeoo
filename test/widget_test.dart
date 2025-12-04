@@ -3,6 +3,14 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:test_azeoo/main.dart';
 
+/// Helper function to increment the counter multiple times
+Future<void> incrementCounter(WidgetTester tester, int times) async {
+  for (int i = 0; i < times; i++) {
+    await tester.tap(find.byTooltip('Increment').last);
+    await tester.pump();
+  }
+}
+
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
@@ -13,8 +21,7 @@ void main() {
     expect(find.text('1'), findsNothing);
 
     // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add).first);
-    await tester.pump();
+    await incrementCounter(tester, 1);
 
     // Verify that our counter has incremented.
     expect(find.text('0'), findsNothing);
@@ -25,11 +32,8 @@ void main() {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
 
-    // Tap the '+' icon twice
-    await tester.tap(find.byIcon(Icons.add).first);
-    await tester.pump();
-    await tester.tap(find.byIcon(Icons.add).first);
-    await tester.pump();
+    // Increment counter twice
+    await incrementCounter(tester, 2);
 
     // Verify counter is at 2
     expect(find.text('2'), findsOneWidget);
@@ -46,13 +50,8 @@ void main() {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
 
-    // Tap the '+' icon several times
-    await tester.tap(find.byIcon(Icons.add).first);
-    await tester.pump();
-    await tester.tap(find.byIcon(Icons.add).first);
-    await tester.pump();
-    await tester.tap(find.byIcon(Icons.add).first);
-    await tester.pump();
+    // Increment counter three times
+    await incrementCounter(tester, 3);
 
     // Verify counter is at 3
     expect(find.text('3'), findsOneWidget);
