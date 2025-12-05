@@ -1,0 +1,39 @@
+pluginManagement {
+    includeBuild("../node_modules/@react-native/gradle-plugin")
+}
+
+plugins {
+    id("com.facebook.react.settings")
+}
+
+// Extension RN
+extensions.configure(com.facebook.react.ReactSettingsExtension) { ex ->
+    ex.autolinkLibrariesFromCommand()
+}
+
+rootProject.name = "azeoo_rn_app"
+include(":app")
+
+// React Native plugin
+includeBuild("../node_modules/@react-native/gradle-plugin")
+
+// -------------------------------------------------------
+// Flutter Add-to-App (format compatible Flutter <= 3.13)
+// -------------------------------------------------------
+def includeFlutterProp = gradle.startParameter.projectProperties.get("includeFlutter")
+
+if (includeFlutterProp == "true") {
+    def flutterModuleRoot = file("../../azeoo_flutter_module/.android")
+
+    def flutterGradleFile = new File(flutterModuleRoot, "Flutter/build.gradle")
+    if (flutterGradleFile.exists()) {
+        include(":flutter")
+        project(":flutter").projectDir = new File(flutterModuleRoot, "Flutter")
+        println "✔ Flutter module included"
+    } else {
+        println "⚠ Flutter Android artifacts not generated. Run:"
+        println "   cd azeoo_flutter_module && flutter build apk"
+    }
+} else {
+    println "ℹ Flutter Add-to-App disabled. Use -PincludeFlutter=true"
+}

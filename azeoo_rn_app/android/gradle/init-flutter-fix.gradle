@@ -1,0 +1,9 @@
+// Gradle init script to inject groovy-xml dependency for Flutter plugin compatibility
+initscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.codehaus.groovy:groovy-xml:3.0.14'
+    }
+}
