@@ -1,4 +1,4 @@
-# Azeoo Flutter SDK — Version Humanisée
+# Azeoo Flutter SDK 
 
 Ce dépôt propose un **SDK Flutter prêt à l’emploi**, pensé pour être utilisé dans plusieurs environnements :
 
